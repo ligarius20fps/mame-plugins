@@ -1,0 +1,10 @@
+{
+  "plugin": {
+	"name": "quantumGameplay",
+	"description": "Quantum Gameplay",
+	"version": "1.5",
+	"author": "ligarius20fps",
+	"type": "plugin",
+	"start": "false"
+  }
+}

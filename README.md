@@ -2,7 +2,7 @@
 Here are my plugins written for MAME
 
 # How to run??
-In command line type:
+Copy folders into MAME's plugins path. Then in command line type:
 ```
 ./mame [rom] -plugins -plugin [pluginName]
 ```

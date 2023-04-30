@@ -1,0 +1,10 @@
+{
+  "plugin": {
+	"name": "corruptTool",
+	"description": "Corrupt Tool",
+	"version": "0.0",
+	"author": "ligarius20fps",
+	"type": "plugin",
+	"start": "false"
+  }
+}

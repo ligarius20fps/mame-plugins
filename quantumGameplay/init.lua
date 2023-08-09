@@ -1,6 +1,6 @@
 local exports = {
 	name = "quantumGameplay",
-	version = "1.5",
+	version = "1.6",
 	description = "Disrupting your gameplay with intermittent state saving/loading",
 	licence = "BSD-3-Clause",
 	author = {name = "ligarius20fps"}}
@@ -11,7 +11,7 @@ function quantumGameplay.startplugin()
 	--feel free to edit varables below ↓
 	local number_of_timelines = 5
 	local seconds = 10 -- how long should we stay on a timeline before loading another one
-	local load_delay = emu.attotime.from_msec(100) -- delay to prevent cancelling pending save state, read: https://docs.mamedev.org/techspecs/luareference.html#id6
+	local load_delay = emu.attotime.from_msec(100) -- delay to prevent cancelling pending save state, read: https://docs.mamedev.org/luascript/ref-core.html#id6
 	--feel free to edit varables above ↑
 	local load_from_origin = true
 	local curr_timeline = 1
@@ -43,19 +43,25 @@ function quantumGameplay.startplugin()
 	end
 	-- setting up menu ↓
 	local function populate()
-		return {{ "Press select here to set a new timeline origin" }}
+		return {{ "Press select here to set a new timeline origin" },
+			{ "Stop" }}
 	end
 	local function callback(i, e)
-		if i == 1 and e == "select" then
+		if i == 1 and e == "select"
+		then
 			emu.print_verbose("less goo")
 			init()
+		elseif i == 2 and e == "select"
+		then
+			running = false
+			manager.machine:popmessage("Stopped")
 		end
 	end
 	emu.register_menu(callback, populate, "Quantum Gameplay – set a new origin")
 	-- setting up menu ↑
 	emu.register_periodic(function()
 		if running then
-			now = manager.machine.time
+			local now = manager.machine.time
 			if about_to_load and now > load_moment then
 				load(next_state)
 				about_to_load = false
